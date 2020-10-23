@@ -1,0 +1,13 @@
+function xdot=sub_pratice31(t,y)
+global Mr Q
+
+dq=[y(4);y(5);y(6)];
+
+% if force = sin(t), the movement is very small so I increased force =
+% 100*sin(t), I tried to change the freq of acting force (n*t) to see some
+% different parttern as well 
+rotate_force = [10;0;100];
+f_all = rotate_force + Q;
+ddq = Mr*f_all;
+
+xdot=[dq;ddq];
