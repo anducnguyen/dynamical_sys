@@ -1,4 +1,5 @@
-clear all
+clear all 
+close all
 global Mr Q
 g = 9.81;
 j = 10;
@@ -6,14 +7,14 @@ m = 2;
 M = [m 0 0;0 m 0; 0 0 j];
 L = 6;
 t0=0;       
-tf=3.0;
+tf=2.0;
 step=0.005;   
-ndat=(1/step)*tf;
+ndat=(1/step)*tf;   
 
 Mr = inv(M);
-Q = [0 -m*g 0]';
-xb0 = 0.1;
-yb0 = 1.0;
+Q = [0 0 0]';
+xb0 = 0;
+yb0 = 0;
 xdot0 = 1.0;
 ydot0 = 1.0;
 theta0 = 30/180*pi;
@@ -43,24 +44,25 @@ grid on
 
 %%
 for i = 1:length(y(:,1))
-    xb1(i) = y(i,1)-L*cos(y(i,3)/2);
-    xb2(i) = y(i,1)+L*cos(y(i,3)/2);
-    yb1(i) = y(i,2)-L*sin(y(i,3)/2);
-    yb2(i) = y(i,2)+L*sin(y(i,3)/2);
+    xb1(i) = y(i,1);
+    xb2(i) = y(i,1)+L*cos(y(i,3));
+    yb1(i) = y(i,2);
+    yb2(i) = y(i,2)+L*sin(y(i,3));
    
     figure(2)
-    plot([xb1(i),xb2(i)],[yb1(i),yb2(i)],'linewidth',3);
-    axis([-10,50,-70,70],'square'); 
+    plot([xb1(i),xb2(i)],[yb1(i),yb2(i)],'linewidth',2);
+    axis([0,100,0,100]); 
     grid on
 %     pause(0.005);
     xlabel('x(m)')
     ylabel('y(m)')
     title('Animation of rotating bar')
-    drawnow();
+    %plot(xb2(i),yb2(i),'.');
+    drawnow();  
 end
 %%
 figure(3)
-plot(sqrt((xb1-xb2).^2+(yb1-yb2).^2)/2)
+plot(sqrt((xb1-xb2).^2+(yb1-yb2).^2))
 title('Check the constrain of length L of the bar [L = 6]')
  
 
